@@ -1,0 +1,844 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\OpenCvSharp3-AnyCPU.3.3.1.20171117\build\OpenCvSharp3-AnyCPU.props" Condition="Exists('..\packages\OpenCvSharp3-AnyCPU.3.3.1.20171117\build\OpenCvSharp3-AnyCPU.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{845353DC-363C-430B-B44C-EC77358B92EF}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>OCRTrans</RootNamespace>
+    <AssemblyName>OCRTrans</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;UTILS_OPENCVSHARP_ENABLED;UTILS_GDI_ENABLED;UTILS_DOTNET;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpenCvSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.3.1.20171117\lib\net46\OpenCvSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp.Blob, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.3.1.20171117\lib\net46\OpenCvSharp.Blob.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.3.1.20171117\lib\net46\OpenCvSharp.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp.UserInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.3.1.20171117\lib\net46\OpenCvSharp.UserInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Tesseract, Version=3.0.2.0, Culture=neutral, PublicKeyToken=ebeb3d86bef60cbe, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tesseract.3.0.2.0\lib\net451\Tesseract.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="..\Utils\CS\KalmanFilter.cs">
+      <Link>Utils\KalmanFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\Utils\CS\LayoutHelper.cs">
+      <Link>Utils\LayoutHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Utils\CS\Logger.cs">
+      <Link>Utils\Logger.cs</Link>
+    </Compile>
+    <Compile Include="..\Utils\CS\ManifestResource.cs">
+      <Link>Utils\ManifestResource.cs</Link>
+    </Compile>
+    <Compile Include="..\Utils\CS\Point.cs">
+      <Link>Utils\Point.cs</Link>
+    </Compile>
+    <Compile Include="..\Utils\CS\Profiler.cs">
+      <Link>Utils\Profiler.cs</Link>
+    </Compile>
+    <Compile Include="..\Utils\CS\Random.cs">
+      <Link>Utils\Random.cs</Link>
+    </Compile>
+    <Compile Include="..\Utils\CS\Rect.cs">
+      <Link>Utils\Rect.cs</Link>
+    </Compile>
+    <Compile Include="..\Utils\CS\Size.cs">
+      <Link>Utils\Size.cs</Link>
+    </Compile>
+    <Compile Include="..\Utils\CS\Storage.cs">
+      <Link>Utils\Storage.cs</Link>
+    </Compile>
+    <Compile Include="..\Utils\CS\Util.cs">
+      <Link>Utils\Util.cs</Link>
+    </Compile>
+    <Compile Include="ResultWindow.xaml.cs">
+      <DependentUpon>ResultWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Translater.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="ResultWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="OcrTranslater.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="..\tessdata-3.04.00\afr.traineddata">
+      <Link>tessdata\afr.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\amh.traineddata">
+      <Link>tessdata\amh.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ara.cube.bigrams">
+      <Link>tessdata\ara.cube.bigrams</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ara.cube.fold">
+      <Link>tessdata\ara.cube.fold</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ara.cube.lm">
+      <Link>tessdata\ara.cube.lm</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ara.cube.nn">
+      <Link>tessdata\ara.cube.nn</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ara.cube.params">
+      <Link>tessdata\ara.cube.params</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ara.cube.size">
+      <Link>tessdata\ara.cube.size</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ara.cube.word-freq">
+      <Link>tessdata\ara.cube.word-freq</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ara.traineddata">
+      <Link>tessdata\ara.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\asm.traineddata">
+      <Link>tessdata\asm.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\aze.traineddata">
+      <Link>tessdata\aze.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\aze_cyrl.traineddata">
+      <Link>tessdata\aze_cyrl.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\bel.traineddata">
+      <Link>tessdata\bel.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ben.traineddata">
+      <Link>tessdata\ben.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\bod.traineddata">
+      <Link>tessdata\bod.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\bos.traineddata">
+      <Link>tessdata\bos.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\bul.traineddata">
+      <Link>tessdata\bul.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\cat.traineddata">
+      <Link>tessdata\cat.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ceb.traineddata">
+      <Link>tessdata\ceb.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ces.traineddata">
+      <Link>tessdata\ces.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\chi_sim.traineddata">
+      <Link>tessdata\chi_sim.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\chi_tra.traineddata">
+      <Link>tessdata\chi_tra.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\chr.traineddata">
+      <Link>tessdata\chr.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\cym.traineddata">
+      <Link>tessdata\cym.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\dan.traineddata">
+      <Link>tessdata\dan.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\dan_frak.traineddata">
+      <Link>tessdata\dan_frak.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\deu.traineddata">
+      <Link>tessdata\deu.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\deu_frak.traineddata">
+      <Link>tessdata\deu_frak.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\dzo.traineddata">
+      <Link>tessdata\dzo.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ell.traineddata">
+      <Link>tessdata\ell.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\eng.cube.bigrams">
+      <Link>tessdata\eng.cube.bigrams</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\eng.cube.fold">
+      <Link>tessdata\eng.cube.fold</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\eng.cube.lm">
+      <Link>tessdata\eng.cube.lm</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\eng.cube.nn">
+      <Link>tessdata\eng.cube.nn</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\eng.cube.params">
+      <Link>tessdata\eng.cube.params</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\eng.cube.size">
+      <Link>tessdata\eng.cube.size</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\eng.cube.word-freq">
+      <Link>tessdata\eng.cube.word-freq</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\eng.tesseract_cube.nn">
+      <Link>tessdata\eng.tesseract_cube.nn</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\eng.traineddata">
+      <Link>tessdata\eng.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\enm.traineddata">
+      <Link>tessdata\enm.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\epo.traineddata">
+      <Link>tessdata\epo.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\equ.traineddata">
+      <Link>tessdata\equ.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\est.traineddata">
+      <Link>tessdata\est.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\eus.traineddata">
+      <Link>tessdata\eus.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\fas.traineddata">
+      <Link>tessdata\fas.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\fin.traineddata">
+      <Link>tessdata\fin.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\fra.cube.bigrams">
+      <Link>tessdata\fra.cube.bigrams</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\fra.cube.fold">
+      <Link>tessdata\fra.cube.fold</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\fra.cube.lm">
+      <Link>tessdata\fra.cube.lm</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\fra.cube.nn">
+      <Link>tessdata\fra.cube.nn</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\fra.cube.params">
+      <Link>tessdata\fra.cube.params</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\fra.cube.size">
+      <Link>tessdata\fra.cube.size</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\fra.cube.word-freq">
+      <Link>tessdata\fra.cube.word-freq</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\fra.tesseract_cube.nn">
+      <Link>tessdata\fra.tesseract_cube.nn</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\fra.traineddata">
+      <Link>tessdata\fra.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\frk.traineddata">
+      <Link>tessdata\frk.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\frm.traineddata">
+      <Link>tessdata\frm.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\gle.traineddata">
+      <Link>tessdata\gle.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\glg.traineddata">
+      <Link>tessdata\glg.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\grc.traineddata">
+      <Link>tessdata\grc.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\guj.traineddata">
+      <Link>tessdata\guj.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\hat.traineddata">
+      <Link>tessdata\hat.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\heb.traineddata">
+      <Link>tessdata\heb.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\hin.cube.bigrams">
+      <Link>tessdata\hin.cube.bigrams</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\hin.cube.fold">
+      <Link>tessdata\hin.cube.fold</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\hin.cube.lm">
+      <Link>tessdata\hin.cube.lm</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\hin.cube.nn">
+      <Link>tessdata\hin.cube.nn</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\hin.cube.params">
+      <Link>tessdata\hin.cube.params</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\hin.cube.word-freq">
+      <Link>tessdata\hin.cube.word-freq</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\hin.tesseract_cube.nn">
+      <Link>tessdata\hin.tesseract_cube.nn</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\hin.traineddata">
+      <Link>tessdata\hin.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\hrv.traineddata">
+      <Link>tessdata\hrv.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\hun.traineddata">
+      <Link>tessdata\hun.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\iku.traineddata">
+      <Link>tessdata\iku.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ind.traineddata">
+      <Link>tessdata\ind.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\isl.traineddata">
+      <Link>tessdata\isl.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ita.cube.bigrams">
+      <Link>tessdata\ita.cube.bigrams</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ita.cube.fold">
+      <Link>tessdata\ita.cube.fold</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ita.cube.lm">
+      <Link>tessdata\ita.cube.lm</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ita.cube.nn">
+      <Link>tessdata\ita.cube.nn</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ita.cube.params">
+      <Link>tessdata\ita.cube.params</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ita.cube.size">
+      <Link>tessdata\ita.cube.size</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ita.cube.word-freq">
+      <Link>tessdata\ita.cube.word-freq</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ita.tesseract_cube.nn">
+      <Link>tessdata\ita.tesseract_cube.nn</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ita.traineddata">
+      <Link>tessdata\ita.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ita_old.traineddata">
+      <Link>tessdata\ita_old.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\jav.traineddata">
+      <Link>tessdata\jav.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\jpn.traineddata">
+      <Link>tessdata\jpn.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\kan.traineddata">
+      <Link>tessdata\kan.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\kat.traineddata">
+      <Link>tessdata\kat.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\kat_old.traineddata">
+      <Link>tessdata\kat_old.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\kaz.traineddata">
+      <Link>tessdata\kaz.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\khm.traineddata">
+      <Link>tessdata\khm.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\kir.traineddata">
+      <Link>tessdata\kir.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\kor.traineddata">
+      <Link>tessdata\kor.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\kur.traineddata">
+      <Link>tessdata\kur.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\lao.traineddata">
+      <Link>tessdata\lao.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\lat.traineddata">
+      <Link>tessdata\lat.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\lav.traineddata">
+      <Link>tessdata\lav.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\lit.traineddata">
+      <Link>tessdata\lit.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\mal.traineddata">
+      <Link>tessdata\mal.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\mar.traineddata">
+      <Link>tessdata\mar.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\mkd.traineddata">
+      <Link>tessdata\mkd.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\mlt.traineddata">
+      <Link>tessdata\mlt.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\msa.traineddata">
+      <Link>tessdata\msa.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\mya.traineddata">
+      <Link>tessdata\mya.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\nep.traineddata">
+      <Link>tessdata\nep.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\nld.traineddata">
+      <Link>tessdata\nld.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\nor.traineddata">
+      <Link>tessdata\nor.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ori.traineddata">
+      <Link>tessdata\ori.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\osd.traineddata">
+      <Link>tessdata\osd.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\pan.traineddata">
+      <Link>tessdata\pan.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\pol.traineddata">
+      <Link>tessdata\pol.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\por.traineddata">
+      <Link>tessdata\por.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\pus.traineddata">
+      <Link>tessdata\pus.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ron.traineddata">
+      <Link>tessdata\ron.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\rus.cube.fold">
+      <Link>tessdata\rus.cube.fold</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\rus.cube.lm">
+      <Link>tessdata\rus.cube.lm</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\rus.cube.nn">
+      <Link>tessdata\rus.cube.nn</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\rus.cube.params">
+      <Link>tessdata\rus.cube.params</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\rus.cube.size">
+      <Link>tessdata\rus.cube.size</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\rus.cube.word-freq">
+      <Link>tessdata\rus.cube.word-freq</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\rus.traineddata">
+      <Link>tessdata\rus.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\san.traineddata">
+      <Link>tessdata\san.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\sin.traineddata">
+      <Link>tessdata\sin.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\slk.traineddata">
+      <Link>tessdata\slk.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\slk_frak.traineddata">
+      <Link>tessdata\slk_frak.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\slv.traineddata">
+      <Link>tessdata\slv.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\spa.cube.bigrams">
+      <Link>tessdata\spa.cube.bigrams</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\spa.cube.fold">
+      <Link>tessdata\spa.cube.fold</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\spa.cube.lm">
+      <Link>tessdata\spa.cube.lm</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\spa.cube.nn">
+      <Link>tessdata\spa.cube.nn</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\spa.cube.params">
+      <Link>tessdata\spa.cube.params</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\spa.cube.size">
+      <Link>tessdata\spa.cube.size</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\spa.cube.word-freq">
+      <Link>tessdata\spa.cube.word-freq</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\spa.traineddata">
+      <Link>tessdata\spa.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\spa_old.traineddata">
+      <Link>tessdata\spa_old.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\sqi.traineddata">
+      <Link>tessdata\sqi.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\srp.traineddata">
+      <Link>tessdata\srp.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\srp_latn.traineddata">
+      <Link>tessdata\srp_latn.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\swa.traineddata">
+      <Link>tessdata\swa.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\swe.traineddata">
+      <Link>tessdata\swe.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\syr.traineddata">
+      <Link>tessdata\syr.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\tam.traineddata">
+      <Link>tessdata\tam.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\tel.traineddata">
+      <Link>tessdata\tel.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\tgk.traineddata">
+      <Link>tessdata\tgk.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\tgl.traineddata">
+      <Link>tessdata\tgl.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\tha.traineddata">
+      <Link>tessdata\tha.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\tir.traineddata">
+      <Link>tessdata\tir.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\tur.traineddata">
+      <Link>tessdata\tur.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\uig.traineddata">
+      <Link>tessdata\uig.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\ukr.traineddata">
+      <Link>tessdata\ukr.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\urd.traineddata">
+      <Link>tessdata\urd.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\uzb.traineddata">
+      <Link>tessdata\uzb.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\uzb_cyrl.traineddata">
+      <Link>tessdata\uzb_cyrl.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\vie.traineddata">
+      <Link>tessdata\vie.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\tessdata-3.04.00\yid.traineddata">
+      <Link>tessdata\yid.traineddata</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="x64\liblept172.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libtesseract304.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\liblept172.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\libtesseract304.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7%28x86 및 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>이 프로젝트는 이 컴퓨터에 없는 NuGet 패키지를 참조합니다. 해당 패키지를 다운로드하려면 NuGet 패키지 복원을 사용하십시오. 자세한 내용은 http://go.microsoft.com/fwlink/?LinkID=322105를 참조하십시오. 누락된 파일은 {0}입니다.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\OpenCvSharp3-AnyCPU.3.3.1.20171117\build\OpenCvSharp3-AnyCPU.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\OpenCvSharp3-AnyCPU.3.3.1.20171117\build\OpenCvSharp3-AnyCPU.props'))" />
+  </Target>
+</Project>

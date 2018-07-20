@@ -19,14 +19,22 @@ namespace OCRTrans
     /// </summary>
     public partial class ResultWindow : Window
     {
-        public ResultWindow()
+        public ResultWindow(MainWindow mw)
         {
             InitializeComponent();
+
+            DataContext = mw;
         }
 
-        public void SetResult(OcrResult result)
+        public void SetResult(OcrResult result, OcrResult origin)
         {
             Tb_result.Text = result.GetText();
+            Tb_result_original.Text = origin.GetText();
+        }
+
+        private void header_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }

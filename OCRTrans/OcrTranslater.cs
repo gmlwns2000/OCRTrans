@@ -152,6 +152,9 @@ namespace OCRTrans
         {
             //preproc
             Cv2.CvtColor(frame, frame, ColorConversionCodes.BGRA2GRAY);
+            Cv2.Resize(frame, frame, new OpenCvSharp.Size(frame.Width * 4, frame.Height * 4));
+            Cv2.GaussianBlur(frame, frame, new OpenCvSharp.Size(3, 3), 0);
+            Cv2.Threshold(frame, frame, 0, 255, (ThresholdTypes)((int)ThresholdTypes.Binary + (int)ThresholdTypes.Otsu));
 
             if(buffer == null || buffer.Width != frame.Width || buffer.Height != frame.Height)
             {
@@ -386,20 +389,15 @@ namespace OCRTrans
             foreach (var block in detected.Block)
             {
                 var transBlock = new OcrBlock();
-                foreach (var para in block.Para)
-                {
-                    var transPara = new OcrPara();
-                    foreach (var line in para.Line)
-                    {
-                        var text = line.GetText();
-                        var transText = translater.TranslateGoogle(text, From, To);
-                        var transLine = new OcrLine();
-                        var transWord = new OcrWord() { Text = transText };
-                        transLine.Word.Add(transWord);
-                        transPara.Line.Add(transLine);
-                    }
-                    transBlock.Para.Add(transPara);
-                }
+                var transPara = new OcrPara();
+                var text = block.GetText();
+                text = text.Replace('\n', ' ');
+                var transText = translater.TranslateGoogle(text, From, To);
+                var transLine = new OcrLine();
+                var transWord = new OcrWord() { Text = transText };
+                transLine.Word.Add(transWord);
+                transPara.Line.Add(transLine);
+                transBlock.Para.Add(transPara);
                 translated.Block.Add(transBlock);
             }
 

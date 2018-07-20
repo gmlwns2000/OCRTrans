@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OCRTrans"
         mc:Ignorable="d"
-        Title="ResultWindow" Height="300" Width="300" SizeToContent="Height" Topmost="True">
-    <Grid>
-        <TextBlock x:Name="Tb_result"/>
-    </Grid>
+        Title="ResultWindow" Width="370.5" SizeToContent="Height" Topmost="True" ResizeMode="CanResizeWithGrip" Opacity="{Binding MainOpacity}" WindowStyle="None" AllowsTransparency="True" d:DesignHeight="130.5">
+    <StackPanel>
+        <Rectangle Height="16" Fill="#AA000000" x:Name="header" MouseDown="header_MouseDown"/>
+        <StackPanel Margin="10,5">
+            <Grid>
+                <Slider Width="100" HorizontalAlignment="Left" Minimum="0.2" Maximum="1.0" Value="{Binding MainOpacity}" SmallChange="0.05" LargeChange="0.1"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <CheckBox Content="IsTopMost" IsChecked="{Binding IsTopMost}" Margin="5,0"/>
+                    <CheckBox Content="FollowWindow" IsChecked="{Binding FollowWindow}" Margin="5,0"/>
+                </StackPanel>
+            </Grid>
+            <TextBlock x:Name="Tb_result" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
+            <TextBlock x:Name="Tb_result_original" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
+        </StackPanel>
+    </StackPanel>
 </Window>
